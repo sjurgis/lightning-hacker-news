@@ -1,1 +1,23 @@
-hi
+<script src="https://rasta-commie-developer-edition.ap2.force.com/lightning/lightning.out.js"></script>
+
+
+<script src="https://9to5weather-dev-ed.my.salesforce.com/lightning/lightning.out.js"></script>
+
+
+<script>
+    $Lightning.use("c:news",    // name of the Lightning app
+        function() {                  // Callback once framework and app loaded
+            $Lightning.createComponent(
+                "c:NewsMain", // top-level component of your app
+                { },                  // attributes to set on the component when created
+                "lightningLocator",   // the DOM location to insert the component
+                function(cmp) {
+                    // callback when component is created and active on the page
+                }
+            );
+        },
+        'https://rasta-commie-developer-edition.ap2.force.com'  // Community endpoint
+    );
+</script>
+
+<div id="lightningLocator"> <div>
