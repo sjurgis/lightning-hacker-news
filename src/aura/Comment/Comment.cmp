@@ -1,0 +1,20 @@
+<aura:component >
+  <aura:attribute name="comment" type="Object"/>
+  <aura:attribute name="level" type="integer" default="1"/>
+
+  <tr
+    style="{! 'padding-left:'+ v.level*20 + 'px ; display:block;'}"
+    class="{! if(v.level ==1, 'slds-p-top--medium slds-p-bottom--xx-small' ,'slds-p-bottom--xx-small') }">
+    <div class="slds-text-heading--small slds-text-color--weak">
+      <a href="{#'#user='+v.comment.user}">{#v.comment.user}</a> &nbsp;   &nbsp; {#v.comment.time_ago}
+    </div>
+    <div class="slds-text-heading--medium slds-text-color--default">
+      <aura:unescapedHtml value="{#v.comment.content}"/>
+    </div>
+
+  </tr>
+  <aura:iteration items="{!v.comment.comments}" var="c">
+    <c:Comment comment="{#c}" level="{#v.level+1}"/>
+  </aura:iteration>
+
+</aura:component>
