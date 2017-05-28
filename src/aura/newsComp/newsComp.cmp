@@ -1,0 +1,77 @@
+<aura:component>
+  {!globalID}
+  <header class="slds-global-header_container">
+    <div class="slds-global-header slds-grid slds-grid_align-spread">
+      <div class="slds-grid slds-global-header__item">
+        <div class="slds-grid slds-m-around--medium">
+          <div class="slds-global-header__logo ">
+            <a href="#">
+              <img src="https://sjurgis.github.io/lightning-hacker-news/orange.png" alt=""/>
+            </a>
+          </div>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <div clas="slds-col_bump-left">
+            <a href="https://github.com/sjurgis/lightning-hacker-news">Source</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <aura:handler event="aura:locationChange"
+    action="{!c.setStory}" />
+  <aura:attribute name="stories"
+    type="object[]" />
+  <aura:attribute name="story"
+    type="Object" />
+  <aura:attribute name="page"
+    type="Integer"
+    default="1" />
+  <br/><br/>
+  <div class="slds-m-around--medium">
+    <aura:if isTrue="{! !empty(v.story)}">
+      <div class="slds-text-heading--large">
+        {#v.story.title}
+      </div>
+      <table>
+        <tbody>
+          <aura:iteration items="{!v.story.comments}"
+            var="c">
+            <c:Comment comment="{#c}" />
+          </aura:iteration>
+        </tbody>
+      </table>
+      <aura:set attribute="else">
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped">
+          <tbody>
+            <aura:iteration items="{!v.stories}"
+              var="s">
+              <tr>
+                <td data-label="Points/Karma">
+                  <div class="slds-truncate"
+                    title="Points / Karma">
+                    {#s.points} {#s.karma} &nbsp; {#s.avg}
+                  </div>
+                </td>
+                <td data-label="Title / Created">
+                  <div class="slds-truncate"
+                    title="Title / Created"><a href="{#s.url}">{#s.title}</a>{#s.created}</div>
+                  <div class="slds-text-heading--medium slds-text-color--default">
+                    <aura:unescapedHtml value="{#s.about}" />
+                  </div>
+                </td>
+                <td data-label="Comments">
+                  <div class="slds-truncate"
+                    title="Comments">
+                    <a href="{#'#item='+s.id}">{! if(!empty(s.comments_count),s.comments_count +' comments','')} </a>
+                  </div>
+                </td>
+              </tr>
+            </aura:iteration>
+          </tbody>
+        </table>
+      </aura:set>
+    </aura:if>
+    <a onclick="{!c.next}">Next</a>
+  </div>
+</aura:component>
