@@ -29,7 +29,6 @@
 					cmp.set('v.stories',j) 
 					cmp.set('v.story',undefined) 
 				})
-			// helper.setPayload(payload, hash, cmp)
 		} else {
 			fetch('https://node-hnapi.herokuapp.com/news')
 			  .then( m => m.json() )
